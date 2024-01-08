@@ -193,11 +193,35 @@ headCoach.textContent = coachName;
 
 // Valores por defecto en funciones:
 // - Si la llamamos sin parámetro usa ese valor
-
-const setPlayerCards= (arr = players)=>{
-    playerCards.innerHTML+=arr.map(()=>{
-        
-    });
+// Interesante el uso del operador ternario dentro de `${}`
+const setPlayerCards = (arr = players) => {
+  playerCards.innerHTML += arr
+    .map(
+      ({ name, position, number, isCaptain, nickname }) => // destructuring, supone cada elemento del array es un objeto y coje esas propiedades
+        `                                                  
+        <div class="player-card">
+          <h2>${name} ${isCaptain ? "(Captain)" : ""}</h2>
+          <p>Position: ${position}</p>
+          <p>Number: ${number}</p>
+          <p>Nickname: ${nickname !== null ? nickname : "N/A"}</p>
+        </div>
+      `
+    )
+    .join("");
 };
+
+// e representa un objeto con informacion sobre el evento
+playersDropdownList.addEventListener("change",(e)=>{
+  // e.target.value representa el contenido del atributo value del select (de sus option)
+  // console.log(e.target.value);
+  playerCards.innerHTML="";
+  switch(e.target.value){
+    case "nickname": setPlayerCards(players.filter((player)=>player.nickname!==null)); break;
+    case "forward" : setPlayerCards(players.filter((player)=> player.position==="forward")); break;
+    case "midfielder": setPlayerCards(players.filter((player)=>player.position==="midfielder")); break;
+    case "defender" : setPlayerCards(players.filter((player)=> player.position === "defender")); break;
+    case "goalkeeper" : setPlayerCards(players.filter((player)=>player.position === "goalkeeper")); break;
+    default : setPlayerCards();
+}});
 
 
