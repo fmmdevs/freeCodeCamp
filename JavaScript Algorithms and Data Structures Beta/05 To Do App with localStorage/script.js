@@ -17,8 +17,29 @@ openTaskFormBtn.addEventListener("click", () =>
   taskForm.classList.toggle("hidden")
 );
 
-closeTaskFormBtn.addEventListener("click", () => {
-  confirmCloseDialog.showModal();
-});
 
+// showModal() es un método especifico para el elemento HTML <dialog> que se utiliza para crear ventanas de diálogo 
+closeTaskFormBtn.addEventListener("click", () =>confirmCloseDialog.showModal());
+// para cerrar el dialogo usamos el metodo close().
+cancelBtn.addEventListener("click", ()=>confirmCloseDialog.close());
+
+// Cuando pulsemos el boton de discard cerramos el cuadro de dialogo 
+// y hacemos que desaparezca el formulario activando la clase hidden con classList.toogle("hidden"),
+discardBtn.addEventListener("click", ()=>{
+    confirmCloseDialog.close();
+    taskForm.classList.toggle("hidden");
+    });
+
+    taskForm.addEventListener("submit", (e) => {
+        // En la arrow function usamos el parametro e que representa al evento
+        // para poder evitar que se actualice la página, que es el comportamiento
+        // por defecto que tiene un evento submit.
+        e.preventDefault();
+        
+        // findIndex is an array method that lets find the index of the FIRST 
+        // element in an array that satisfies a given testing function.
+        const dataArrIndex = taskData.findIndex((item)=>item.id===currentTask.id);
+
+      
+      });
 
